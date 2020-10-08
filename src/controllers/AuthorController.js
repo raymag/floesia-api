@@ -16,7 +16,7 @@ const getAuthorById = async (req, res, next) => {
         return res.status(500).json({ message: 'Author does not exist!' });
     }
 
-    res.json(
+    return res.status(200).json(
         {
             id: author._id, 
             showEmail: author.showEmail, 
