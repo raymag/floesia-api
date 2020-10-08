@@ -4,13 +4,15 @@ const AuthorSchema = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
-        dropDups: true
+        dropDups: true,
+        required: true
     },
     password: String,
     email: {
         type: String,
         unique: true,
-        dropDups: true
+        dropDups: true,
+        required: true
     },
     showEmail: {
         type: Boolean,

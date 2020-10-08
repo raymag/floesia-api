@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
-const Author = require('./controllers/AuthorController');
 const Auth = require('./controllers/AuthController');
+const Author = require('./controllers/AuthorController');
+const Poem = require('./controllers/PoemController');
 
 router.get('/', (req, res) => {
     res.json({test:true});
@@ -11,6 +12,10 @@ router.get('/authors', Auth.isAuthenticated, (req, res, next) => {
     console.log('x')
     res.status(200).json({message: 'Success!'});
 });
+
+router.get('/poems', Poem.list);
+
+router.post('/poems', Auth.isAuthenticated, Poem.store);
 
 router.post('/signup', Author.signup);
 
