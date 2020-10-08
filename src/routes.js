@@ -15,7 +15,7 @@ router.get('/authors', Auth.isAuthenticated, (req, res, next) => {
 
 router.get('/author/:pid', Author.getAuthorById);
 
-router.get('/author/:pid/poems', Author.getPoemsByAuthorId)
+router.get('/author/:pid/poems', Poem.getPoemsByAuthorId)
 
 router.get('/poems', Poem.list);
 
