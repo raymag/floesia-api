@@ -1,4 +1,5 @@
 const Poem = require('../models/Poem');
+const Author = require('../models/Author');
 
 const store = async (req, res) => {
     let { title, body } = req.body;
@@ -38,6 +39,7 @@ const list = async (req, res) => {
 
 const getPoemsByAuthorId = async (req, res) => {
     const authorId = req.params.pid;
+    
     let author;
     try {
         author = await Author.findById(authorId);
@@ -58,9 +60,7 @@ const getPoemsByAuthorId = async (req, res) => {
             author: authorId
         });
 
-        return res.status(200).json({
-            poems
-        });
+        return res.status(200).json(poems);
     } catch (err) {
         console.log(err)
         return res.status(500).send();
