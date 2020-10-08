@@ -15,19 +15,21 @@ const store = async (req, res) => {
 }
 
 const list = async (req, res) => {
-    let { page, itemsPerPage } = req.query;
+    let page = parseInt(req.query.page);
+    let items = parseInt(req.query.items);
     try {
         if (!page) {
             page = 1;
         }
-        if (!itemsPerPage) {
-            itemsPerPage = 5;
+        if (!items) {
+            items = 5;
         }
         const poems = await Poem.find()
-                                .skip( page > 0 ? ( (page-1) * itemsPerPage ) : 0 )
-                                .limit(itemsPerPage);
-        return res.status(200).json(poems);
+                                .skip( page > 0 ? ( (page-1) * items ) : 0 )
+                                .limit(items);
+        return res.status(200).json({poems});
     } catch(err) {
+        console.log(err)
         return res.status(500).send();
     }
 }
