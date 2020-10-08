@@ -1,16 +1,9 @@
 const Poem = require('../models/Poem');
 
 const store = async (req, res) => {
-    let {
-        title,
-        body
-    } = req.body;
+    let { title, body } = req.body;
     try {
-        const poem = await Poem.create({
-            title,
-            body,
-            author: req.userId
-        });
+        const poem = await Poem.create({ title, body, author: req.userId });
         if (poem) {
             return res.status(201).json(poem)
         } else {

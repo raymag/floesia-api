@@ -5,21 +5,17 @@ const Author = require('./controllers/AuthorController');
 const Poem = require('./controllers/PoemController');
 
 router.get('/', (req, res) => {
-    res.json({
-        test: true
-    });
+    res.json({ test: true });
 })
 
 router.get('/authors', Auth.isAuthenticated, (req, res, next) => {
     console.log('x')
-    res.status(200).json({
-        message: 'Success!'
-    });
+    res.status(200).json({ message: 'Success!' });
 });
 
 router.get('/author/:pid', Author.getAuthorById);
 
-router.get('/author/:pid/poems', Poem.getPoemsByAuthorId);
+router.get('/author/:pid/poems', Author.getPoemsByAuthorId)
 
 router.get('/poems', Poem.list);
 
