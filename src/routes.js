@@ -13,6 +13,8 @@ router.get('/authors', Auth.isAuthenticated, (req, res, next) => {
     res.status(200).json({message: 'Success!'});
 });
 
+router.get('/poems', Poem.list);
+
 router.post('/poems', Auth.isAuthenticated, Poem.store);
 
 router.post('/signup', Author.signup);
