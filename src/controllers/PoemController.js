@@ -15,6 +15,36 @@ const store = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    let { title, body } = req.body;
+    let { pid } = req.params;
+    try {
+        let updatedPoem = new Object();
+        if (title != undefined) {
+            updatedPoem.title = title;
+        }
+
+        if (body != undefined) {
+            updatedPoem.body = body;
+        }
+
+        if (title == undefined && body == undefined) {
+            return res.status(500).send();
+        }
+
+        const poem = await Poem.updateOne({ _id: pid }, updatedPoem);
+        if (poem) {
+            return res.status(201).json(poem)
+        } else {
+            return res.status(406).send();
+        }
+        // res.status(201).json(pid);
+    } catch (err) {
+        return res.status(500).send();
+    }
+
+}
+
 const list = async (req, res) => {
     let page = parseInt(req.query.page);
     let items = parseInt(req.query.items);
@@ -39,7 +69,7 @@ const list = async (req, res) => {
 
 const getPoemsByAuthorId = async (req, res) => {
     const authorId = req.params.pid;
-    
+
     let author;
     try {
         author = await Author.findById(authorId);
@@ -69,6 +99,7 @@ const getPoemsByAuthorId = async (req, res) => {
 
 module.exports = {
     store,
+    update,
     list,
     getPoemsByAuthorId,
 };
