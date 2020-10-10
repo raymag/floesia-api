@@ -28,17 +28,19 @@ const update = async (req, res) => {
             updatedPoem.body = body;
         }
 
-        if (title == undefined && body == undefined) {
+        if (title === undefined && body === undefined) {
+            return res.status(400).json("New data was not sent.");
+        }
+        
+        const poem = await Poem.updateOne({ _id: pid, author: req.userId }, updatedPoem);
+        if (poem) {
+            if (poem.n !== 0){
+                return res.status(201).json(poem)
+            } 
+            return res.status(401).json("User does not own the poem.");
+        } else {
             return res.status(500).send();
         }
-
-        const poem = await Poem.updateOne({ _id: pid }, updatedPoem);
-        if (poem) {
-            return res.status(201).json(poem)
-        } else {
-            return res.status(406).send();
-        }
-        // res.status(201).json(pid);
     } catch (err) {
         return res.status(500).send();
     }
