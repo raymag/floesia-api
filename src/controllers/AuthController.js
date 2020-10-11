@@ -7,12 +7,22 @@ const login = async (req, res, next) => {
     let { email, password } = req.body;
     password = crypto.createHash('sha256').update(password).digest('base64');
     try {
-        const author = await Author.findOne({email, password});
+        const author = await Author.findOne({ email, password });
         if (!author) {
-            return res.status(404).json({auth:false})
+            return res.status(404).json({ auth: false })
         } else {
-            const token = jwt.sign({id: author._id}, process.env.SECRET, {expiresIn:259200});
-            return res.status(200).json({auth:true, token:token});
+            const token = jwt.sign({ id: author._id }, process.env.SECRET, { expiresIn: 259200 });
+
+            const authorObject = {
+                auth: true,
+                token: token,
+                author: {
+                    _id: author._id,
+                    username: author.username,
+                    email: author.email
+                }
+            }
+            return res.status(200).json(authorObject);
         }
     } catch (error) {
         next(error);

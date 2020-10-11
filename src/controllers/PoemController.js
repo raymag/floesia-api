@@ -31,12 +31,12 @@ const update = async (req, res) => {
         if (title === undefined && body === undefined) {
             return res.status(400).json("New data was not sent.");
         }
-        
+
         const poem = await Poem.updateOne({ _id: pid, author: req.userId }, updatedPoem);
         if (poem) {
-            if (poem.n !== 0){
+            if (poem.n !== 0) {
                 return res.status(201).json(poem)
-            } 
+            }
             return res.status(401).json("User does not own the poem.");
         } else {
             return res.status(500).send();
@@ -44,7 +44,30 @@ const update = async (req, res) => {
     } catch (err) {
         return res.status(500).send();
     }
+}
 
+const remove = async (req, res) => {
+    let { pid } = req.params;
+    let { author } = req.headers;
+
+    try {
+        if (author == undefined || author == "") {
+            return res.status(401).json("User does not own the poem.");
+        }
+
+        const poem = await Poem.deleteOne({ _id: pid, author: author });
+        console.log(poem);
+        if (poem) {
+            if (poem.n !== 0) {
+                return res.status(201).json(poem)
+            }
+            return res.status(401).json("User does not own the poem.");
+        } else {
+            return res.status(500).send();
+        }
+    } catch (err) {
+        return res.status(500).send();
+    }
 }
 
 const list = async (req, res) => {
@@ -102,6 +125,7 @@ const getPoemsByAuthorId = async (req, res) => {
 module.exports = {
     store,
     update,
+    remove,
     list,
     getPoemsByAuthorId,
 };
