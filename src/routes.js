@@ -23,6 +23,8 @@ router.post('/poems', Auth.isAuthenticated, Poem.store);
 
 router.post('/poems/:pid', Auth.isAuthenticated, Poem.update);
 
+router.delete('/poems/:pid', Auth.isAuthenticated, Poem.remove);
+
 router.post('/signup', Author.signup);
 
 router.post('/login', Auth.login);
