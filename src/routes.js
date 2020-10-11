@@ -5,7 +5,7 @@ const Author = require('./controllers/AuthorController');
 const Poem = require('./controllers/PoemController');
 
 router.get('/', (req, res) => {
-    res.json({ test: true });
+    res.json("FLOESIA API v1 2020");
 })
 
 router.get('/authors', Auth.isAuthenticated, (req, res, next) => {
@@ -21,7 +21,7 @@ router.get('/poems', Poem.list);
 
 router.post('/poems', Auth.isAuthenticated, Poem.store);
 
-router.post('/poems/:pid', Auth.isAuthenticated, Poem.update);
+router.put('/poems/:pid', Auth.isAuthenticated, Poem.update);
 
 router.delete('/poems/:pid', Auth.isAuthenticated, Poem.remove);
 
