@@ -48,7 +48,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     let { pid } = req.params;
-    let { author } = req.headers;
+    let author = req.userId;
 
     try {
         if (author == undefined || author == "") {
@@ -61,7 +61,7 @@ const remove = async (req, res) => {
             if (poem.n !== 0) {
                 return res.status(201).json(poem)
             }
-            return res.status(401).json("User does not own the poem.");
+            return res.status(401).json("User does not own the poem or it doesn't exists.");
         } else {
             return res.status(500).send();
         }
