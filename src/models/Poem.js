@@ -5,7 +5,10 @@ const PoemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    body: String,
+    body: {
+        type: String,
+        required: true
+    },
     author: {
         type:  mongoose.ObjectId,
         required: true,
