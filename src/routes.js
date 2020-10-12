@@ -8,11 +8,6 @@ router.get('/', (req, res) => {
     res.json("FLOESIA API v1 2020");
 })
 
-router.get('/authors', Auth.isAuthenticated, (req, res, next) => {
-    console.log('x')
-    res.status(200).json({ message: 'Success!' });
-});
-
 router.get('/author/:pid', Author.getAuthorById);
 
 router.get('/author/:pid/poems', Poem.getPoemsByAuthorId)

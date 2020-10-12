@@ -82,7 +82,7 @@ const list = async (req, res) => {
         }
         const poems = await Poem
             .find()
-            .sort({"createdAt": -1})
+            .sort({ "createdAt": -1 })
             .skip(page > 0 ? ((page - 1) * items) : 0)
             .limit(items)
             .populate('author', ['username', 'email']);
@@ -132,7 +132,7 @@ const getOne = async (req, res) => {
     let { pid } = req.params;
     try {
         const poem = await Poem
-            .findOne({ "_id":pid })
+            .findOne({ "_id": pid })
             .populate('author', ['username', 'email']);
         if (poem) {
             return res.status(200).json({
