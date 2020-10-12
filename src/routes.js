@@ -15,7 +15,7 @@ router.get('/author/:pid/poems', Poem.getPoemsByAuthorId)
 
 router.get('/poems/:pid', Poem.getOne);
 
-router.get('/poems', Poem.list);
+router.get('/poems', Auth.mightBeAuthenticated, Poem.list);
 
 router.post('/poems', Auth.isAuthenticated, Poem.store);
 
