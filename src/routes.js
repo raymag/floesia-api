@@ -3,6 +3,7 @@ const router = require('express').Router();
 const Auth = require('./controllers/AuthController');
 const Author = require('./controllers/AuthorController');
 const Poem = require('./controllers/PoemController');
+const Heart = require('./controllers/HeartController');
 
 router.get('/', (req, res) => {
     res.json("FLOESIA API v1 2020");
@@ -21,6 +22,8 @@ router.post('/poems', Auth.isAuthenticated, Poem.store);
 router.put('/poems/:pid', Auth.isAuthenticated, Poem.update);
 
 router.delete('/poems/:pid', Auth.isAuthenticated, Poem.remove);
+
+router.post('/hearts/:pid', Auth.isAuthenticated, Heart.store);
 
 router.post('/signup', Author.signup);
 
