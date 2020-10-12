@@ -32,6 +32,21 @@ const store = async (req, res) => {
     }
 }
 
+const listByAuthorId = async (req, res) => {
+    let {pid} = req.params;
+    try {
+        const hearts = Heart.find({author:pid});
+        if (hearts) {
+            return res.status(200).json(hearts);
+        }
+        return res.status(200).json([]);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send();
+    }
+}
+
 module.exports = {
-    store
+    store,
+    listByAuthorId
 }
