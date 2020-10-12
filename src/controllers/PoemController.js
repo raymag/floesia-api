@@ -80,9 +80,12 @@ const list = async (req, res) => {
         if (!items) {
             items = 5;
         }
-        const poems = await Poem.find()
+        const poems = await Poem
+            .find()
+            .sort({"createdAt": 1})
             .skip(page > 0 ? ((page - 1) * items) : 0)
-            .limit(items);
+            .limit(items)
+            .populate('author', ['username', 'email']);
         return res.status(200).json({
             poems
         });
