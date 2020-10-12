@@ -138,7 +138,7 @@ const getOne = async (req, res) => {
         } else {
             return res.status(404).json("Poem not found.");
         }
-    } catch (error) {
+    } catch (err) {
         console.log(err)
         return res.status(500).send();
     }
