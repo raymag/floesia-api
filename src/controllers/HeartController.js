@@ -3,6 +3,15 @@ const Heart = require("../models/Heart");
 const store = async (req, res) => {
     let { pid } = req.params;
     try {
+        const heartExists = await Heart.findOne({
+            poem: pid,
+            author: req.userId
+        });
+
+        if (heartExists) {
+            return res.status(200).json("Heart already exists.");
+        }
+
         const heart = await Heart.create({
             poem: pid,
             author: req.userId
