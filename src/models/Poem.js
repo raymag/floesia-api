@@ -5,7 +5,8 @@ const PoemSchema = new mongoose.Schema({
     body: String,
     author: {
         type:  mongoose.ObjectId,
-        required: true
+        required: true,
+        ref: 'Author'
     },
     hearts: {
         type: Number,
