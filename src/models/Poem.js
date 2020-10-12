@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const PoemSchema = new mongoose.Schema({
-    title: String,
-    body: String,
+    title: {
+        type: String,
+        required: true
+    },
+    body: {
+        type: String,
+        required: true
+    },
     author: {
         type:  mongoose.ObjectId,
         required: true,
