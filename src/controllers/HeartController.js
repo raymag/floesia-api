@@ -1,4 +1,5 @@
 const Heart = require("../models/Heart");
+const Poem = require("../models/Poem");
 
 const store = async (req, res) => {
     let { pid } = req.params;
@@ -18,6 +19,9 @@ const store = async (req, res) => {
         });
 
         if (heart) {
+            await Poem.updateOne({_id:pid}, {$inc:{
+                hearts: 1
+            }})
             return res.status(201).json(heart);
         } else {
             return res.status(406).send();
