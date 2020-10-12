@@ -33,9 +33,11 @@ const store = async (req, res) => {
 }
 
 const listByAuthorId = async (req, res) => {
-    let {pid} = req.params;
+    let { pid } = req.params;
     try {
-        const hearts = Heart.find({author:pid});
+        const hearts = await Heart
+            .find({author:pid})
+            .sort({createdAt:-1});
         if (hearts) {
             return res.status(200).json(hearts);
         }
