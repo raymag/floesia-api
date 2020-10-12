@@ -125,10 +125,30 @@ const getPoemsByAuthorId = async (req, res) => {
     }
 }
 
+const getOne = async (req, res) => {
+    let { pid } = req.params;
+    try {
+        const poem = await Poem
+            .findOne({ "_id":pid })
+            .populate('author', ['username', 'email']);
+        if (poem) {
+            return res.status(200).json({
+                poem
+            });
+        } else {
+            return res.status(404).json("Poem not found.");
+        }
+    } catch (error) {
+        console.log(err)
+        return res.status(500).send();
+    }
+}
+
 module.exports = {
     store,
     update,
     remove,
     list,
     getPoemsByAuthorId,
+    getOne
 };
