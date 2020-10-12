@@ -82,7 +82,7 @@ const list = async (req, res) => {
         }
         const poems = await Poem
             .find()
-            .sort({"createdAt": -1})
+            .sort({ "createdAt": -1 })
             .skip(page > 0 ? ((page - 1) * items) : 0)
             .limit(items)
             .populate('author', ['username', 'email']);
@@ -114,11 +114,33 @@ const getPoemsByAuthorId = async (req, res) => {
     }
 
     try {
-        const poems = await Poem.find({
-            author: authorId
-        });
+        const poems = await Poem
+            .find({
+                author: authorId
+            })
+            .sort({ "createdAt": -1 })
+            .populate("author", ["username", "email"]);
 
         return res.status(200).json(poems);
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send();
+    }
+}
+
+const getOne = async (req, res) => {
+    let { pid } = req.params;
+    try {
+        const poem = await Poem
+            .findOne({ "_id": pid })
+            .populate('author', ['username', 'email']);
+        if (poem) {
+            return res.status(200).json({
+                poem
+            });
+        } else {
+            return res.status(404).json("Poem not found.");
+        }
     } catch (err) {
         console.log(err)
         return res.status(500).send();
@@ -131,4 +153,5 @@ module.exports = {
     remove,
     list,
     getPoemsByAuthorId,
+    getOne
 };
