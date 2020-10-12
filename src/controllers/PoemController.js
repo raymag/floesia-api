@@ -114,9 +114,12 @@ const getPoemsByAuthorId = async (req, res) => {
     }
 
     try {
-        const poems = await Poem.find({
-            author: authorId
-        });
+        const poems = await Poem
+            .find({
+                author: authorId
+            })
+            .sort({ "createdAt": -1 })
+            .populate("author", ["username", "email"]);
 
         return res.status(200).json(poems);
     } catch (err) {
