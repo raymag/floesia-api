@@ -82,7 +82,7 @@ const list = async (req, res) => {
         }
         const poems = await Poem
             .find()
-            .sort({"createdAt": 1})
+            .sort({"createdAt": -1})
             .skip(page > 0 ? ((page - 1) * items) : 0)
             .limit(items)
             .populate('author', ['username', 'email']);
