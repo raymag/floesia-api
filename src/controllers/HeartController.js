@@ -59,8 +59,20 @@ const remove = async (req, res) => {
     }
 }
 
+const removeWithPoemId = async (req, res) => {
+    let {pid} = req.params;
+    try {
+        const removedHeart = await Heart.deleteOne({poem: pid, author: req.userId});
+        return res.status(200).json(removedHeart);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send();
+    }
+}
+
 module.exports = {
     store,
     listByAuthorId,
-    remove
+    remove,
+    removeWithPoemId
 }
