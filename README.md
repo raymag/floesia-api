@@ -1,8 +1,9 @@
 # Floesia API
 API for managing Floesia. You can find the frontend of this project [here](https://github.com/raymag/floesia).
 
-<br/>
-<img src="https://media.giphy.com/media/3o7btW1Js39uJ23LAA/giphy.gif" alt="books">
+|  |  |
+| --- | --- |
+| <img height="250" src="https://user-images.githubusercontent.com/29918030/95920186-53a3fe80-0d85-11eb-96ef-a7e8a5986910.png" style="display:inline;float:left"/> | <img height="250" src="https://user-images.githubusercontent.com/29918030/95921810-59e7aa00-0d88-11eb-8253-2eacfa2d9796.png"  style="display:inline;float:right"/> |
 
 ---
 
