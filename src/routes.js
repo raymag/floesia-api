@@ -29,6 +29,8 @@ router.get('/author/:pid/hearts', Heart.listByAuthorId);
 
 router.delete('/hearts/:pid', Auth.isAuthenticated, Heart.remove);
 
+router.delete('/poems/:pid/hearts', Auth.isAuthenticated, Heart.removeWithPoemId);
+
 router.post('/signup', Author.signup);
 
 router.post('/login', Auth.login);
