@@ -63,6 +63,11 @@ const removeWithPoemId = async (req, res) => {
     let {pid} = req.params;
     try {
         const removedHeart = await Heart.deleteOne({poem: pid, author: req.userId});
+        if (removedHeart) {
+            await Poem.updateOne({_id:pid}, {$inc:{
+                hearts: -1
+            }});
+        }
         return res.status(200).json(removedHeart);
     } catch (err) {
         console.log(err);
