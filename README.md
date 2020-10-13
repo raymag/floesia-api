@@ -1,5 +1,5 @@
 # Floesia API
-API for managing Floesia. You can find the frontend of this project [here](https://github.com/raymag/floesia).
+API for managing [Floesia](https://floesia.netlify.app/). You can find the frontend of this project [here](https://github.com/raymag/floesia).
 
 |  |  |
 | --- | --- |
