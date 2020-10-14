@@ -11,7 +11,9 @@ router.get('/', (req, res) => {
 
 router.get('/author/:pid', Author.getAuthorById);
 
-router.get('/author/:pid/poems', Poem.getPoemsByAuthorId)
+router.get('/author/:pid/poems', Poem.getPoemsByAuthorId);
+
+router.get('/poems/trending', Poem.trending);
 
 router.get('/poems/:pid', Poem.getOne);
 
