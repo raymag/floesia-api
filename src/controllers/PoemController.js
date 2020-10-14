@@ -118,7 +118,8 @@ const trending = async (req, res) => {
                 "$limit": 3
             }
         ]);
-        const trending = await Poem.populate(hearts, {path:"_id"});
+        let trending = await Poem.populate(hearts, {path:"_id"});
+        trending = await Poem.populate(trending, {path:"_id.author", select: ["username", "email"]});
         if (trending) {
             return res.status(200).json(trending);
         } else {
