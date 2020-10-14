@@ -107,18 +107,18 @@ const trending = async (req, res) => {
                 }
             }, 
             {
-                "$sort": {"createdAt": -1}
+                "$group": {
+                    "_id": "$poem"
+                }
             },
             {
-                "$group": {
-                    "_id": {"poem":"$poem"}
-                }
+                "$sort": {"_id": -1}
             },
             {
                 "$limit": 3
             }
         ]);
-        const trending = await Poem.populate(hearts, {path:"_id.poem"});
+        const trending = await Poem.populate(hearts, {path:"_id"});
         if (trending) {
             return res.status(200).json(trending);
         } else {
