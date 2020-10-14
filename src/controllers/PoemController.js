@@ -1,5 +1,6 @@
 const Poem = require('../models/Poem');
 const Author = require('../models/Author');
+const Heart = require('../models/Heart');
 
 const store = async (req, res) => {
     let { title, body } = req.body;
@@ -95,6 +96,40 @@ const list = async (req, res) => {
     }
 }
 
+const trending = async (req, res) => {
+    try {
+        const hearts = await Heart.aggregate([
+            {
+                "$match": {
+                    "createdAt": {
+                        "$gt": new Date(Date.now() - 24*60*60 * 1000)
+                    }
+                }
+            }, 
+            {
+                "$sort": {"createdAt": -1}
+            },
+            {
+                "$group": {
+                    "_id": {"poem":"$poem"}
+                }
+            },
+            {
+                "$limit": 3
+            }
+        ]);
+        const trending = await Poem.populate(hearts, {path:"_id.poem"});
+        if (trending) {
+            return res.status(200).json(trending);
+        } else {
+            return res.status(200).json([]);
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send();
+    }
+}
+
 const getPoemsByAuthorId = async (req, res) => {
     const authorId = req.params.pid;
 
@@ -153,5 +188,6 @@ module.exports = {
     remove,
     list,
     getPoemsByAuthorId,
-    getOne
+    getOne,
+    trending
 };
