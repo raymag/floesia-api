@@ -183,6 +183,21 @@ const getOne = async (req, res) => {
     }
 }
 
+const getNumberOfHeartsByPoemId = async (req, res) => {
+    let { pid } = req.params;
+    try {
+        const poem = await Poem
+            .findOne({ "_id": pid });
+        if (poem) {
+            return res.status(200).json(poem.hearts);
+        } else {
+            return res.status(404).json("Poem not found.");
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send();
+    }
+}
 module.exports = {
     store,
     update,
@@ -190,5 +205,6 @@ module.exports = {
     list,
     getPoemsByAuthorId,
     getOne,
-    trending
+    trending,
+    getNumberOfHeartsByPoemId
 };
