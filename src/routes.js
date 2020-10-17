@@ -17,6 +17,8 @@ router.get('/poems/trending', Poem.trending);
 
 router.get('/poems/:pid', Poem.getOne);
 
+router.get('/poems/:pid/hearts', Poem.getNumberOfHeartsByPoemId);
+
 router.get('/poems', Poem.list);
 
 router.post('/poems', Auth.isAuthenticated, Poem.store);
