@@ -9,15 +9,15 @@ router.get('/', (req, res) => {
     res.json("FLOESIA API v1 2020");
 })
 
-router.get('/author/:pid', Author.getAuthorById);
-
 router.get('/author/:pid/poems', Poem.getPoemsByAuthorId);
+
+router.get('/author/:pid', Author.getAuthorById);
 
 router.get('/poems/trending', Poem.trending);
 
-router.get('/poems/:pid', Poem.getOne);
-
 router.get('/poems/:pid/hearts', Poem.getNumberOfHeartsByPoemId);
+
+router.get('/poems/:pid', Poem.getOne);
 
 router.get('/poems', Poem.list);
 
